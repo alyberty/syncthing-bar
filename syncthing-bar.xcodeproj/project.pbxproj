@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		505B3DC01B80E8340054C486 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505B3DBF1B80E8340054C486 /* FinderSync.swift */; };
+		505B3DC31B80E8340054C486 /* syncthing-bar-finder-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 505B3DBA1B80E8340054C486 /* syncthing-bar-finder-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		50A0ED2E1B40A4F500D38320 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A0ED2D1B40A4F500D38320 /* CoreServices.framework */; };
+		50A0ED321B40B88600D38320 /* FileSystemWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */; };
 		830680AC1B1C43D100B0B7A7 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830680AB1B1C43D100B0B7A7 /* SettingsWindowController.swift */; };
 		830680AE1B1C448700B0B7A7 /* SettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 830680AD1B1C448700B0B7A7 /* SettingsWindow.xib */; };
 		830680B01B1C801700B0B7A7 /* SyncthingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830680AF1B1C801700B0B7A7 /* SyncthingSettings.swift */; };
 		8310FB891B1F3DB500225E47 /* MonitorRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310FB881B1F3DB500225E47 /* MonitorRunner.swift */; };
+		B69269A498E828C29D7B406B /* Pods_syncthing_barTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947C00A631CC8CE0C932078B /* Pods_syncthing_barTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C7B48918FE1BB476F6F603FB /* Pods_syncthing_bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13962FA73FDBDA3C69C390A /* Pods_syncthing_bar.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F11BC9B11A3E20CA00360C2E /* syncthing in Resources */ = {isa = PBXBuildFile; fileRef = F11BC9B01A3E20CA00360C2E /* syncthing */; };
 		F11BC9B31A3E45E100360C2E /* SyncthingFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11BC9B21A3E45E100360C2E /* SyncthingFolder.swift */; };
 		F14B62FC1B39E2B90022C08F /* syncthing-bar.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1A2BD421A6178620014473E /* syncthing-bar.pdf */; };
@@ -27,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		505B3DC11B80E8340054C486 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1B098F91A3C40AD00B79D31 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 505B3DB91B80E8340054C486;
+			remoteInfo = "syncthing-bar-finder-extension";
+		};
 		F1B099141A3C40AE00B79D31 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1B098F91A3C40AD00B79D31 /* Project object */;
@@ -36,11 +49,40 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		505B3DC71B80E8340054C486 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				505B3DC31B80E8340054C486 /* syncthing-bar-finder-extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		505B3DBA1B80E8340054C486 /* syncthing-bar-finder-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "syncthing-bar-finder-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		505B3DBD1B80E8340054C486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		505B3DBE1B80E8340054C486 /* syncthing_bar_finder_extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = syncthing_bar_finder_extension.entitlements; sourceTree = "<group>"; };
+		505B3DBF1B80E8340054C486 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
+		505B3DC81B80E8600054C486 /* syncthing-bar-finder-extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "syncthing-bar-finder-extension.entitlements"; sourceTree = "<group>"; };
+		505B3DC91B814EC40054C486 /* Infanticide.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Infanticide.sh; sourceTree = "<group>"; };
+		50A0ED2D1B40A4F500D38320 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		50A0ED2F1B40A69600D38320 /* CDEvents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CDEvents.framework; path = "Pods/../build/Debug/Pods-syncthing-bar/CDEvents.framework"; sourceTree = "<group>"; };
+		50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemWatcher.swift; sourceTree = "<group>"; };
+		5EC98A7DF4B416468DE498E2 /* Pods-syncthing-barTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncthing-barTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-syncthing-barTests/Pods-syncthing-barTests.debug.xcconfig"; sourceTree = "<group>"; };
 		830680AB1B1C43D100B0B7A7 /* SettingsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		830680AD1B1C448700B0B7A7 /* SettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsWindow.xib; sourceTree = "<group>"; };
 		830680AF1B1C801700B0B7A7 /* SyncthingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncthingSettings.swift; sourceTree = "<group>"; };
 		8310FB881B1F3DB500225E47 /* MonitorRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorRunner.swift; sourceTree = "<group>"; };
+		947C00A631CC8CE0C932078B /* Pods_syncthing_barTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_syncthing_barTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		97E48F46AAC93341ED71C6AA /* Pods-syncthing-bar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncthing-bar.release.xcconfig"; path = "Pods/Target Support Files/Pods-syncthing-bar/Pods-syncthing-bar.release.xcconfig"; sourceTree = "<group>"; };
+		C2A8A5B71829731241807EE4 /* Pods-syncthing-bar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncthing-bar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-syncthing-bar/Pods-syncthing-bar.debug.xcconfig"; sourceTree = "<group>"; };
+		CF075EE05B6BBD1BE76F7193 /* Pods-syncthing-barTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncthing-barTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-syncthing-barTests/Pods-syncthing-barTests.release.xcconfig"; sourceTree = "<group>"; };
+		D13962FA73FDBDA3C69C390A /* Pods_syncthing_bar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_syncthing_bar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11BC9B01A3E20CA00360C2E /* syncthing */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = syncthing; sourceTree = "<group>"; };
 		F11BC9B21A3E45E100360C2E /* SyncthingFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncthingFolder.swift; sourceTree = "<group>"; };
 		F1A2BD421A6178620014473E /* syncthing-bar.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "syncthing-bar.pdf"; sourceTree = "<group>"; };
@@ -61,10 +103,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		505B3DB71B80E8340054C486 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1B098FE1A3C40AD00B79D31 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50A0ED2E1B40A4F500D38320 /* CoreServices.framework in Frameworks */,
+				C7B48918FE1BB476F6F603FB /* Pods_syncthing_bar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +123,53 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B69269A498E828C29D7B406B /* Pods_syncthing_barTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FEA51CF8314C10071FACC99 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50A0ED2F1B40A69600D38320 /* CDEvents.framework */,
+				D13962FA73FDBDA3C69C390A /* Pods_syncthing_bar.framework */,
+				947C00A631CC8CE0C932078B /* Pods_syncthing_barTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		505B3DBB1B80E8340054C486 /* syncthing-bar-finder-extension */ = {
+			isa = PBXGroup;
+			children = (
+				505B3DC81B80E8600054C486 /* syncthing-bar-finder-extension.entitlements */,
+				505B3DBF1B80E8340054C486 /* FinderSync.swift */,
+				505B3DBC1B80E8340054C486 /* Supporting Files */,
+			);
+			path = "syncthing-bar-finder-extension";
+			sourceTree = "<group>";
+		};
+		505B3DBC1B80E8340054C486 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				505B3DBD1B80E8340054C486 /* Info.plist */,
+				505B3DBE1B80E8340054C486 /* syncthing_bar_finder_extension.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		52F2B516DF59AE1E623413BE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2A8A5B71829731241807EE4 /* Pods-syncthing-bar.debug.xcconfig */,
+				97E48F46AAC93341ED71C6AA /* Pods-syncthing-bar.release.xcconfig */,
+				5EC98A7DF4B416468DE498E2 /* Pods-syncthing-barTests.debug.xcconfig */,
+				CF075EE05B6BBD1BE76F7193 /* Pods-syncthing-barTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F11BC9AF1A3E202700360C2E /* binary */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,7 +185,10 @@
 				F11BC9AF1A3E202700360C2E /* binary */,
 				F1B099031A3C40AD00B79D31 /* syncthing-bar */,
 				F1B099161A3C40AE00B79D31 /* syncthing-barTests */,
+				505B3DBB1B80E8340054C486 /* syncthing-bar-finder-extension */,
 				F1B099021A3C40AD00B79D31 /* Products */,
+				52F2B516DF59AE1E623413BE /* Pods */,
+				1FEA51CF8314C10071FACC99 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +197,7 @@
 			children = (
 				F1B099011A3C40AD00B79D31 /* syncthing-bar.app */,
 				F1B099131A3C40AE00B79D31 /* syncthing-barTests.xctest */,
+				505B3DBA1B80E8340054C486 /* syncthing-bar-finder-extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,7 +208,6 @@
 				F1A4E42B1A4587C300602986 /* Main.storyboard */,
 				F1B099061A3C40AD00B79D31 /* AppDelegate.swift */,
 				F1B0990A1A3C40AD00B79D31 /* Images.xcassets */,
-				F1B099041A3C40AD00B79D31 /* Supporting Files */,
 				F1B099271A3C4FA700B79D31 /* LogWindowController.swift */,
 				F1B099291A3C764400B79D31 /* SyncthingRunner.swift */,
 				F1B0992B1A3C77FC00B79D31 /* PortFinder.swift */,
@@ -124,6 +219,9 @@
 				830680AB1B1C43D100B0B7A7 /* SettingsWindowController.swift */,
 				830680AF1B1C801700B0B7A7 /* SyncthingSettings.swift */,
 				8310FB881B1F3DB500225E47 /* MonitorRunner.swift */,
+				50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */,
+				505B3DC91B814EC40054C486 /* Infanticide.sh */,
+				F1B099041A3C40AD00B79D31 /* Supporting Files */,
 			);
 			path = "syncthing-bar";
 			sourceTree = "<group>";
@@ -131,6 +229,7 @@
 		F1B099041A3C40AD00B79D31 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50A0ED2D1B40A4F500D38320 /* CoreServices.framework */,
 				F1B099051A3C40AD00B79D31 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -164,17 +263,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F1B099001A3C40AD00B79D31 /* syncthing-bar */ = {
+		505B3DB91B80E8340054C486 /* syncthing-bar-finder-extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1B0991D1A3C40AE00B79D31 /* Build configuration list for PBXNativeTarget "syncthing-bar" */;
+			buildConfigurationList = 505B3DC61B80E8340054C486 /* Build configuration list for PBXNativeTarget "syncthing-bar-finder-extension" */;
 			buildPhases = (
-				F1B098FD1A3C40AD00B79D31 /* Sources */,
-				F1B098FE1A3C40AD00B79D31 /* Frameworks */,
-				F1B098FF1A3C40AD00B79D31 /* Resources */,
+				505B3DB61B80E8340054C486 /* Sources */,
+				505B3DB71B80E8340054C486 /* Frameworks */,
+				505B3DB81B80E8340054C486 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			name = "syncthing-bar-finder-extension";
+			productName = "syncthing-bar-finder-extension";
+			productReference = 505B3DBA1B80E8340054C486 /* syncthing-bar-finder-extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		F1B099001A3C40AD00B79D31 /* syncthing-bar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1B0991D1A3C40AE00B79D31 /* Build configuration list for PBXNativeTarget "syncthing-bar" */;
+			buildPhases = (
+				8BC908DE696A4E7702B12BD9 /* Check Pods Manifest.lock */,
+				F1B098FD1A3C40AD00B79D31 /* Sources */,
+				F1B098FE1A3C40AD00B79D31 /* Frameworks */,
+				F1B098FF1A3C40AD00B79D31 /* Resources */,
+				4049500993AE7D0D51FD5990 /* Copy Pods Resources */,
+				8E777BAD8F257977F2347BF1 /* Embed Pods Frameworks */,
+				505B3DC71B80E8340054C486 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				505B3DC21B80E8340054C486 /* PBXTargetDependency */,
 			);
 			name = "syncthing-bar";
 			productName = "syncthing-bar";
@@ -185,9 +306,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1B099201A3C40AE00B79D31 /* Build configuration list for PBXNativeTarget "syncthing-barTests" */;
 			buildPhases = (
+				2F997624CD5D85F18676E9B8 /* Check Pods Manifest.lock */,
 				F1B0990F1A3C40AE00B79D31 /* Sources */,
 				F1B099101A3C40AE00B79D31 /* Frameworks */,
 				F1B099111A3C40AE00B79D31 /* Resources */,
+				CD0E600B9A28D0914F090FEC /* Embed Pods Frameworks */,
+				DA1E6C02F2DF9DC0C89FAAB7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +332,14 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = mop;
 				TargetAttributes = {
+					505B3DB91B80E8340054C486 = {
+						CreatedOnToolsVersion = 6.4;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
 					F1B099001A3C40AD00B79D31 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -232,11 +364,19 @@
 			targets = (
 				F1B099001A3C40AD00B79D31 /* syncthing-bar */,
 				F1B099121A3C40AE00B79D31 /* syncthing-barTests */,
+				505B3DB91B80E8340054C486 /* syncthing-bar-finder-extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		505B3DB81B80E8340054C486 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1B098FF1A3C40AD00B79D31 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,7 +399,108 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F997624CD5D85F18676E9B8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4049500993AE7D0D51FD5990 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-syncthing-bar/Pods-syncthing-bar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BC908DE696A4E7702B12BD9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8E777BAD8F257977F2347BF1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-syncthing-bar/Pods-syncthing-bar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD0E600B9A28D0914F090FEC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-syncthing-barTests/Pods-syncthing-barTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA1E6C02F2DF9DC0C89FAAB7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-syncthing-barTests/Pods-syncthing-barTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		505B3DB61B80E8340054C486 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				505B3DC01B80E8340054C486 /* FinderSync.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1B098FD1A3C40AD00B79D31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,6 +514,7 @@
 				830680B01B1C801700B0B7A7 /* SyncthingSettings.swift in Sources */,
 				830680AC1B1C43D100B0B7A7 /* SettingsWindowController.swift in Sources */,
 				F11BC9B31A3E45E100360C2E /* SyncthingFolder.swift in Sources */,
+				50A0ED321B40B88600D38320 /* FileSystemWatcher.swift in Sources */,
 				F1B020621B39E269006BC805 /* SyncthingBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +530,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		505B3DC21B80E8340054C486 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 505B3DB91B80E8340054C486 /* syncthing-bar-finder-extension */;
+			targetProxy = 505B3DC11B80E8340054C486 /* PBXContainerItemProxy */;
+		};
 		F1B099151A3C40AE00B79D31 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F1B099001A3C40AD00B79D31 /* syncthing-bar */;
@@ -308,6 +555,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		505B3DC41B80E8340054C486 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "syncthing-bar-finder-extension/syncthing-bar-finder-extension.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "syncthing-bar-finder-extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		505B3DC51B80E8340054C486 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "syncthing-bar-finder-extension/syncthing-bar-finder-extension.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "syncthing-bar-finder-extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		F1B0991B1A3C40AE00B79D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,9 +668,14 @@
 		};
 		F1B0991E1A3C40AE00B79D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2A8A5B71829731241807EE4 /* Pods-syncthing-bar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug/Pods-syncthing-bar",
+				);
 				INFOPLIST_FILE = "syncthing-bar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -399,9 +685,14 @@
 		};
 		F1B0991F1A3C40AE00B79D31 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97E48F46AAC93341ED71C6AA /* Pods-syncthing-bar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug/Pods-syncthing-bar",
+				);
 				INFOPLIST_FILE = "syncthing-bar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -411,6 +702,7 @@
 		};
 		F1B099211A3C40AE00B79D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EC98A7DF4B416468DE498E2 /* Pods-syncthing-barTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -431,6 +723,7 @@
 		};
 		F1B099221A3C40AE00B79D31 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF075EE05B6BBD1BE76F7193 /* Pods-syncthing-barTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -448,6 +741,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		505B3DC61B80E8340054C486 /* Build configuration list for PBXNativeTarget "syncthing-bar-finder-extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				505B3DC41B80E8340054C486 /* Debug */,
+				505B3DC51B80E8340054C486 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1B098FC1A3C40AD00B79D31 /* Build configuration list for PBXProject "syncthing-bar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

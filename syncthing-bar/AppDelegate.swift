@@ -9,20 +9,24 @@
 import Cocoa
 import AppKit
 
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
     //var settingsWindowController = SettingsWindowController() //windowNibName: "Settings")
     var runner : SyncthingRunner?
     var syncthingBar : SyncthingBar?
     var log : SyncthingLog = SyncthingLog()
     var monitor : MonitorRunner?
+    var fileSystemWatcher : FileSystemWatcher = FileSystemWatcher()
+    internal var currentlyWatchedFolders : [SyncthingFolder] = []
     
-    func applicationWillFinishLaunching(aNotification: NSNotification?) {
+    func applicationWillFinishLaunching(aNotification: NSNotification) {
         NSApp.setActivationPolicy(NSApplicationActivationPolicy.Accessory)
     }
     
     
-    func applicationDidFinishLaunching(aNotification: NSNotification?) {
+    func applicationDidFinishLaunching(aNotification: NSNotification) {
         syncthingBar = SyncthingBar(log: log)
         runner = SyncthingRunner(log: log)
         let result = runner!.ensureRunning()
@@ -57,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // mop: i don't get it .... this will only get called when quitting via UI. SIGTERM will NOT land here and i fail installing a proper signal handler :|
         self.stop()
     }
-        
+    
     func settingsAction(sender : AnyObject) {
         //settingsWindowController.showWindow(sender)
     }
@@ -74,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //remember_btn.setButtonType(NSButtonType.OnOffButton)
             
             alert.alertStyle = NSAlertStyle.WarningAlertStyle
-        
+            
             let response = alert.runModal()
             if (response != NSAlertFirstButtonReturn) {
                 return
@@ -116,7 +120,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func foldersDetermined(notification: NSNotification) {
         if let folders = notification.userInfo!["folders"] as? Array<SyncthingFolder> {
-            syncthingBar!.setFolders(folders)
+            
+            var foldersHaveChanged = false;
+            
+            if(folders.count != currentlyWatchedFolders.count) {
+                foldersHaveChanged = true;
+            }
+            else
+            {
+                for folder in folders {
+                    if !contains(self.currentlyWatchedFolders, folder) {
+                        foldersHaveChanged = true
+                    }
+                }
+            }
+            
+            if(foldersHaveChanged == true) {
+                currentlyWatchedFolders = folders
+                syncthingBar!.folders = folders
+                fileSystemWatcher.setFolders(folders)
+            }
         }
     }
     
@@ -179,5 +202,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func quit() {
         NSApplication.sharedApplication().terminate(self)
     }
-
+    
+    internal func getRunner() -> SyncthingRunner{
+        return runner!;
+    }
 }

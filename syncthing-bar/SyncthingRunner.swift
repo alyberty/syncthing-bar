@@ -91,6 +91,24 @@ class SyncthingRunner: NSObject {
         task!.launch()
         
         
+        //Modify Child Kill - https://github.com/mralexgray/Infanticide
+        
+        /** change this to the path and arguments of your child daemon */
+        /** how long should the watchdog sleep?  aka: how aggressively should it watch your processes? */
+        let child = "telnet google.com ";
+        
+        var sleepyTime = 5;
+        /** FIN CONF  */
+        
+        var parentPID = NSProcessInfo().processIdentifier// get parent PID (this app) to pass to watchdog
+        var theBabyKiller = "SLEEPYTIME=\(sleepyTime); PARENTPID=\(parentPID); GoSubProcess () { CHILDPID=\(task!.processIdentifier) ; babyRISEfromtheGRAVE; }; babyRISEfromtheGRAVE () { echo \"PARENT is $PARENTPID\"; while kill -0 $PARENTPID; do sleep $SLEEPYTIME; if kill -0 $CHILDPID; then sleep $SLEEPYTIME; else echo \"Baby, pid $CHILDPID died!  Respawn!\"; GoSubProcess; fi; done; logger \"My Parent Process, aka $PARENTPID died!\"; logger \"I'm killing my baby, $CHILDPID, and myself.\"; kill -9 $CHILDPID; exit 1; }; GoSubProcess; exit 0";
+        
+        let watchdog = NSTask() // setup task
+        watchdog.launchPath = "/bin/sh"
+        watchdog.arguments = ["-c",theBabyKiller]
+        watchdog.launch()
+        //watchdog.waitUntilExit()
+        
         // mop: wait until port is open :O
         portOpenTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "checkPortOpen:", userInfo: httpData, repeats: true)
         return nil
@@ -144,7 +162,7 @@ class SyncthingRunner: NSObject {
         return randomString
     }
     
-    func createRequest(path: NSString) -> NSMutableURLRequest {
+    internal func createRequest(path: NSString) -> NSMutableURLRequest {
         var url = NSURL(string: "http://localhost:\(self.port!)\(path)")
         var request = NSMutableURLRequest(URL: url!)
         request.addValue(self.apiKey! as String, forHTTPHeaderField: "X-API-Key")
@@ -215,6 +233,7 @@ class SyncthingRunner: NSObject {
                     println("Got error collecting repositories \(error)")
                 }
             }
+        
         }
     }
     

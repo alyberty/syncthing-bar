@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import CoreServices
+import CDEvents
 
 let FolderTag = 1
 
@@ -23,6 +25,9 @@ public class SyncthingBar: NSObject {
     var log : SyncthingLog
     public var workspace : NSWorkspace = NSWorkspace.sharedWorkspace()
     
+    var icon = NSImage(named: "syncthing-bar")
+    var outOfSyncIcon = NSImage(named: "emblem-syncthing-active")
+    
     public init(log : SyncthingLog) {
         self.log = log
         //Add statusBarItem
@@ -30,10 +35,14 @@ public class SyncthingBar: NSObject {
         statusBarItem.menu = menu
         
         var size = NSSize(width: 18, height: 18)
-        var icon = NSImage(named: "syncthing-bar")
+        
         // mop: that is the preferred way but the image is currently not drawn as it has to be and i am not an artist :(
         icon?.setTemplate(true)
         icon?.size = size
+        
+        outOfSyncIcon?.setTemplate(false)
+        outOfSyncIcon?.size = size
+        
         statusBarItem.image = icon
         
         menu.autoenablesItems = false
@@ -81,6 +90,10 @@ public class SyncthingBar: NSObject {
         openSettingsItem.target = self
         
         self.updateSettings(self.settings!)
+        
+        
+        var timer = NSTimer.scheduledTimerWithTimeInterval( 50, target: self, selector: "updateMenuBarStatus:", userInfo: nil, repeats: true)
+        
     }
     
     func enableUIOpener(uiUrl: NSString) {
@@ -93,34 +106,37 @@ public class SyncthingBar: NSObject {
         openUIItem.enabled = false
     }
     
-    func setFolders(folders: Array<SyncthingFolder>) {
-        // mop: should probably check if anything changed ... but first simple stupid :S
-        var item = menu.itemWithTag(FolderTag)
-        while (item != nil) {
-            menu.removeItem(item!)
-            item = menu.itemWithTag(FolderTag)
-        }
-        
-        // mop: maybe findByTag instead of hardcoded number?
-        var startInsertIndex = 3
-        var folderCount = 0
-        for folder in folders {
-            var folderItem : NSMenuItem = NSMenuItem()
-            folderItem.title = "Open \(folder.id) in Finder"
-            folderItem.representedObject = folder
-            folderItem.action = Selector("openFolderAction:")
-            folderItem.enabled = true
-            folderItem.tag = FolderTag
-            folderItem.target = self
-            menu.insertItem(folderItem, atIndex: startInsertIndex + folderCount++)
-        }
-        
-        // mop: only add if there were folders (we already have a separator after "Open UI")
-        if (folderCount > 0) {
-            var lowerSeparator = NSMenuItem.separatorItem()
-            // mop: well a bit hacky but we need to clear this one as well ;)
-            lowerSeparator.tag = FolderTag
-            menu.insertItem(lowerSeparator, atIndex: startInsertIndex + folderCount)
+    var folders : Array<SyncthingFolder> = [] {
+        didSet {
+            // mop: should probably check if anything changed ... but first simple stupid :S
+            var item = menu.itemWithTag(FolderTag)
+            while (item != nil) {
+                menu.removeItem(item!)
+                item = menu.itemWithTag(FolderTag)
+            }
+            
+            // mop: maybe findByTag instead of hardcoded number?
+            var startInsertIndex = 3
+            var folderCount = 0
+            for folder in folders {
+                var folderItem : NSMenuItem = NSMenuItem()
+                folderItem.title = "Open \(folder.id) in Finder"
+                folderItem.representedObject = folder
+                folderItem.action = Selector("openFolderAction:")
+                folderItem.enabled = true
+                folderItem.tag = FolderTag
+                folderItem.target = self
+                menu.insertItem(folderItem, atIndex: startInsertIndex + folderCount++)
+                
+            }
+            
+            // mop: only add if there were folders (we already have a separator after "Open UI")
+            if (folderCount > 0) {
+                var lowerSeparator = NSMenuItem.separatorItem()
+                // mop: well a bit hacky but we need to clear this one as well ;)
+                lowerSeparator.tag = FolderTag
+                menu.insertItem(lowerSeparator, atIndex: startInsertIndex + folderCount)
+            }
         }
     }
     
@@ -201,7 +217,41 @@ public class SyncthingBar: NSObject {
         }
         
         self.settings?.saveSettings()
-
+        
     }
- 
+    
+    func updateMenuBarStatus(timer:NSTimer!) {
+        var inSync = true
+        
+        for syncthingFolder in folders {
+            let params = "folder=\(syncthingFolder.id)";
+            let data = params.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+            
+            let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+            let request: NSMutableURLRequest = appDelegate.getRunner().createRequest("/rest/db/status?\(params)")
+            request.HTTPMethod = "GET"
+            
+            var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?
+            >=nil
+            var dataVal: NSData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error:nil)!
+            var err: NSError?
+            
+            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataVal, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+            syncthingFolder.setInfoWithDict(jsonResult)
+            
+            if(syncthingFolder.state != SyncthingFolderState.idle) {
+                inSync = false
+                break
+            }
+            
+        }
+        
+        if inSync {
+            statusBarItem.image = icon
+        }
+        else
+        {
+            statusBarItem.image = outOfSyncIcon
+        }
+    }
 }
