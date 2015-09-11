@@ -8,26 +8,34 @@
 
 import Foundation
 import CDEvents
+import SyncthingStatus
 
 public class FileSystemWatcher {
     
     var fileSystemEvent : CDEvents?
+    internal var currentlyWatchedFolders : [String] = []
     
-    public func setFolders(folders: Array<SyncthingFolder>) {
-        
+    init() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("foldersDetermined:"), name: FoldersDetermined, object: nil)
+    }
+    
+    @objc(foldersDetermined:)
+    func foldersDetermined(notification: NSNotification) {
         var fileURLS : [NSURL] = []
-
-        for folder in folders {
-            fileURLS.append( NSURL(fileURLWithPath: folder.path as String,isDirectory: true)! );
+        
+        for folder in dataContext.syncthingFolders {
+            fileURLS.append( NSURL(fileURLWithPath: (folder.path as String?)!,isDirectory: true) );
         }
+        
+        self.fileSystemEvent = nil //Remove all old watched paths
         
         self.fileSystemEvent = CDEvents(URLs: fileURLS, block: { (watcher, event) -> Void in
             
-            for folder in folders {
-                if (event.URL.absoluteString!.rangeOfString(folder.path as String) != nil)
+            for folder in dataContext.syncthingFolders {
+                if (event.URL.absoluteString.rangeOfString((folder.path as String?)!) != nil)
                 {
-                    var URL : NSURL = NSURL(fileURLWithPath: folder.path as String, isDirectory: true)!
-                    var changedURL : NSURL = event.URL;
+                    let URL : NSURL = NSURL(fileURLWithPath: (folder.path as String?)!, isDirectory: true)
+                    let changedURL : NSURL = event.URL;
                     
                     if let relativeURL = changedURL.path?.stringByReplacingOccurrencesOfString(URL.path!, withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch) {
                         let params = "folder=\(folder.id)&sub=\(relativeURL)";
@@ -45,7 +53,7 @@ public class FileSystemWatcher {
                         let notification = NSUserNotification()
                         
                         notification.deliveryDate = NSDate()
-                        notification.title = "File Changed"
+                        notification.title = "Local File Changed"
                         notification.subtitle = "\(folder.id) | \(event.URL.lastPathComponent!)";
                         
                         NSUserNotificationCenter.defaultUserNotificationCenter().scheduleNotification(notification)

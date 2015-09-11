@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Xcode 7.0">
+    <entity name="SyncthingFile" representedClassName="SyncthingStatus.SyncthingFile" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="path" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="inFolder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SyncthingFolder" inverseName="syncedFiles" inverseEntity="SyncthingFolder" syncable="YES"/>
+    </entity>
+    <entity name="SyncthingFolder" representedClassName="SyncthingStatus.SyncthingFolder" syncable="YES">
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="path" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="syncedFiles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SyncthingFile" inverseName="inFolder" inverseEntity="SyncthingFile" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SyncthingFile" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="SyncthingFolder" positionX="-18" positionY="27" width="128" height="105"/>
+    </elements>
+</model>

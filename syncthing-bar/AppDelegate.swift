@@ -8,7 +8,7 @@
 
 import Cocoa
 import AppKit
-
+import SyncthingStatus
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -35,11 +35,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.addButtonWithTitle("Ok :(")
             alert.messageText = "Got a fatal error: \(result!) :( Exiting"
             alert.alertStyle = NSAlertStyle.WarningAlertStyle
-            let response = alert.runModal()
+            alert.runModal()
             self.quit()
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "tooManyErrors:", name: TooManyErrorsNotification, object: runner)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "foldersDetermined:", name: FoldersDetermined, object: runner)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "httpChanged:", name: HttpChanged, object: runner)
         
         self.monitor = MonitorRunner(monitor_apps: syncthingBar?.settings?.monitor_apps)
@@ -93,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.messageText = "Syncthing could not run. There were too many errors. Check log, and restart :("
         alert.alertStyle = NSAlertStyle.WarningAlertStyle
         
-        let response = alert.runModal()
+        alert.runModal()
     }
     
     func genericError(errorMessage: String) {
@@ -102,13 +101,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.messageText = errorMessage
         alert.alertStyle = NSAlertStyle.WarningAlertStyle
         
-        let response = alert.runModal()
+        alert.runModal()
     }
     
     func httpChanged(notification: NSNotification) {
-        if let info = notification.userInfo {
-            var host = notification.userInfo!["host"] as! NSString
-            var port = notification.userInfo!["port"] as! NSString
+        if (notification.userInfo != nil) {
+            let host = notification.userInfo!["host"] as! NSString
+            let port = notification.userInfo!["port"] as! NSString
             
             self.syncthingBar!.settings!.port = port as String
             
@@ -118,46 +117,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func foldersDetermined(notification: NSNotification) {
-        if let folders = notification.userInfo!["folders"] as? Array<SyncthingFolder> {
-            
-            var foldersHaveChanged = false;
-            
-            if(folders.count != currentlyWatchedFolders.count) {
-                foldersHaveChanged = true;
-            }
-            else
-            {
-                for folder in folders {
-                    if !contains(self.currentlyWatchedFolders, folder) {
-                        foldersHaveChanged = true
-                    }
-                }
-            }
-            
-            if(foldersHaveChanged == true) {
-                currentlyWatchedFolders = folders
-                syncthingBar!.folders = folders
-                fileSystemWatcher.setFolders(folders)
-            }
-        }
-    }
-    
     func settingsSet(notification: NSNotification) {
         // ctp: maybe we should have a Settings class ...
-        
-        var settings = self.syncthingBar?.settings
         
         if let settings_ntfc = notification.userInfo!["settings"] as? SyncthingSettings {
             
             var valid_port : Bool = true
-            var port_ntfc : String = settings_ntfc.port
+            let port_ntfc : String = settings_ntfc.port
             
-            if ((count(port_ntfc) < 3) || (count(port_ntfc) > 5)) {
+            if ((port_ntfc.characters.count < 3) || (port_ntfc.characters.count > 5)) {
                 valid_port = false
             }
             
-            var portFromString = port_ntfc.toInt()
+            let portFromString = Int(port_ntfc)
             if ((portFromString) != nil) {
                 if ((portFromString < 1000) || (portFromString > 65535)) {
                     valid_port = false

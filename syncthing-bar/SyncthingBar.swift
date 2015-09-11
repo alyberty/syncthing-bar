@@ -9,6 +9,7 @@
 import Cocoa
 import CoreServices
 import CDEvents
+import SyncthingStatus
 
 let FolderTag = 1
 
@@ -34,13 +35,13 @@ public class SyncthingBar: NSObject {
         statusBarItem = statusBar.statusItemWithLength(-1)
         statusBarItem.menu = menu
         
-        var size = NSSize(width: 18, height: 18)
+        let size = NSSize(width: 18, height: 18)
         
         // mop: that is the preferred way but the image is currently not drawn as it has to be and i am not an artist :(
-        icon?.setTemplate(true)
+        //icon?.setTemplate = true
         icon?.size = size
         
-        outOfSyncIcon?.setTemplate(false)
+        //outOfSyncIcon?.setTemplate = false
         outOfSyncIcon?.size = size
         
         statusBarItem.image = icon
@@ -61,7 +62,7 @@ public class SyncthingBar: NSObject {
         
         menu.addItem(NSMenuItem.separatorItem())
         
-        var openLogItem : NSMenuItem = NSMenuItem()
+        let openLogItem : NSMenuItem = NSMenuItem()
         openLogItem.title = "Show Log"
         openLogItem.action = Selector("openLogAction:")
         openLogItem.enabled = true
@@ -70,13 +71,13 @@ public class SyncthingBar: NSObject {
         // this will automagically check, if there are already settings stored and load them ...
         settings = SyncthingSettings()
         
-        var openSettingsItem : NSMenuItem = NSMenuItem()
+        let openSettingsItem : NSMenuItem = NSMenuItem()
         openSettingsItem.title = "Settings"
         openSettingsItem.action = Selector("openSettingsAction:")
         openSettingsItem.enabled = true
         menu.addItem(openSettingsItem)
         
-        var quitItem : NSMenuItem = NSMenuItem()
+        let quitItem : NSMenuItem = NSMenuItem()
         quitItem.title = "Quit"
         quitItem.action = Selector("quitAction:")
         quitItem.enabled = true
@@ -91,9 +92,8 @@ public class SyncthingBar: NSObject {
         
         self.updateSettings(self.settings!)
         
-        
-        var timer = NSTimer.scheduledTimerWithTimeInterval( 50, target: self, selector: "updateMenuBarStatus:", userInfo: nil, repeats: true)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncthingStatusUpdated:", name: statusDidUpdateNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "foldersDetermined:", name: FoldersDetermined, object: nil)
     }
     
     func enableUIOpener(uiUrl: NSString) {
@@ -106,40 +106,6 @@ public class SyncthingBar: NSObject {
         openUIItem.enabled = false
     }
     
-    var folders : Array<SyncthingFolder> = [] {
-        didSet {
-            // mop: should probably check if anything changed ... but first simple stupid :S
-            var item = menu.itemWithTag(FolderTag)
-            while (item != nil) {
-                menu.removeItem(item!)
-                item = menu.itemWithTag(FolderTag)
-            }
-            
-            // mop: maybe findByTag instead of hardcoded number?
-            var startInsertIndex = 3
-            var folderCount = 0
-            for folder in folders {
-                var folderItem : NSMenuItem = NSMenuItem()
-                folderItem.title = "Open \(folder.id) in Finder"
-                folderItem.representedObject = folder
-                folderItem.action = Selector("openFolderAction:")
-                folderItem.enabled = true
-                folderItem.tag = FolderTag
-                folderItem.target = self
-                menu.insertItem(folderItem, atIndex: startInsertIndex + folderCount++)
-                
-            }
-            
-            // mop: only add if there were folders (we already have a separator after "Open UI")
-            if (folderCount > 0) {
-                var lowerSeparator = NSMenuItem.separatorItem()
-                // mop: well a bit hacky but we need to clear this one as well ;)
-                lowerSeparator.tag = FolderTag
-                menu.insertItem(lowerSeparator, atIndex: startInsertIndex + folderCount)
-            }
-        }
-    }
-    
     func openUIAction(sender: AnyObject) {
         if (url != nil) {
             workspace.openURL(NSURL(string: url! as String)!)
@@ -147,8 +113,8 @@ public class SyncthingBar: NSObject {
     }
     
     func startStopSyncthingAction(sender: AnyObject) {
-        var notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        var title: String = (sender as! NSMenuItem).title
+        let notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        let title: String = (sender as! NSMenuItem).title
         if title.rangeOfString("Stop") != nil {
             (sender as! NSMenuItem).title = "Start Syncthing"
             let startStopData = ["pause": true]
@@ -163,7 +129,7 @@ public class SyncthingBar: NSObject {
     
     public func openFolderAction(sender: AnyObject) {
         let folder = (sender as! NSMenuItem).representedObject as! SyncthingFolder
-        workspace.openURL(NSURL(fileURLWithPath: folder.path as String)!)
+        workspace.openURL(NSURL(fileURLWithPath: (folder.path as String?)!))
     }
     
     func openLogAction(sender: AnyObject) {
@@ -193,24 +159,24 @@ public class SyncthingBar: NSObject {
         
         self.settings = settings
         
-        var size = NSSize(width: 18, height: 18)
+        let size = NSSize(width: 18, height: 18)
         
         if (self.settings!.bw_icon) {
             if (self.settings!.invert_icon) {
-                var icon = NSImage(named: "syncthing-bar-invert")
-                icon?.setTemplate(true)
+                let icon = NSImage(named: "syncthing-bar-invert")
+                //icon?.setTemplate = true
                 icon?.size = size
                 statusBarItem.image = icon
             }
             else {
-                var icon = NSImage(named: "syncthing-bar")
-                icon?.setTemplate(true)
+                let icon = NSImage(named: "syncthing-bar")
+                //icon?.setTemplate = true
                 icon?.size = size
                 statusBarItem.image = icon
             }
         }
         else {
-            var icon = NSImage(named: "AppIcon")
+            let icon = NSImage(named: "AppIcon")
             //icon?.setTemplate(true)
             icon?.size = size
             statusBarItem.image = icon
@@ -220,38 +186,51 @@ public class SyncthingBar: NSObject {
         
     }
     
-    func updateMenuBarStatus(timer:NSTimer!) {
-        var inSync = true
-        
-        for syncthingFolder in folders {
-            let params = "folder=\(syncthingFolder.id)";
-            let data = params.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-            
-            let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-            let request: NSMutableURLRequest = appDelegate.getRunner().createRequest("/rest/db/status?\(params)")
-            request.HTTPMethod = "GET"
-            
-            var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?
-            >=nil
-            var dataVal: NSData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error:nil)!
-            var err: NSError?
-            
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataVal, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            syncthingFolder.setInfoWithDict(jsonResult)
-            
-            if(syncthingFolder.state != SyncthingFolderState.idle) {
-                inSync = false
-                break
+    func syncthingStatusUpdated(notification: NSNotification) {
+        if let inSync = notification.userInfo![statusDidUpdateNotificationStatusKey] as? Bool {
+            if inSync {
+                statusBarItem.image = icon
             }
-            
-        }
-        
-        if inSync {
-            statusBarItem.image = icon
-        }
-        else
-        {
-            statusBarItem.image = outOfSyncIcon
+            else
+            {
+                statusBarItem.image = outOfSyncIcon
+            }
         }
     }
+    
+    func foldersDetermined(notification: NSNotification) {
+        // mop: should probably check if anything changed ... but first simple stupid :S
+        var item = menu.itemWithTag(FolderTag)
+        while (item != nil) {
+            menu.removeItem(item!)
+            item = menu.itemWithTag(FolderTag)
+        }
+        
+        // mop: maybe findByTag instead of hardcoded number?
+        let startInsertIndex = 3
+        var folderCount = 0
+        let folders = dataContext.syncthingFolders
+        
+        for folder in folders {
+            let folderItem : NSMenuItem = NSMenuItem()
+            folderItem.title = "Open \(folder.id) in Finder"
+            folderItem.representedObject = folder
+            folderItem.action = Selector("openFolderAction:")
+            folderItem.enabled = true
+            folderItem.tag = FolderTag
+            folderItem.target = self
+            menu.insertItem(folderItem, atIndex: startInsertIndex + folderCount++)
+            
+        }
+        
+        // mop: only add if there were folders (we already have a separator after "Open UI")
+        if (folderCount > 0) {
+            let lowerSeparator = NSMenuItem.separatorItem()
+            // mop: well a bit hacky but we need to clear this one as well ;)
+            lowerSeparator.tag = FolderTag
+            menu.insertItem(lowerSeparator, atIndex: startInsertIndex + folderCount)
+        }
+    }
+    
+    
 }
