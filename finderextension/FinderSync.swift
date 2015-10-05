@@ -13,6 +13,8 @@ import AlecrimCoreData
 
 
 class FinderSync: FIFinderSync {
+    
+    let badgeIdentifiers = ["OK", "Error","Syncing","Warning"]
 
     override init() {
         super.init()
@@ -29,10 +31,11 @@ class FinderSync: FIFinderSync {
         // Set up the directory we are syncing.
         FIFinderSyncController.defaultController().directoryURLs = syncthingFolderURLS
         
-        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "error")!, label: "Error" , forBadgeIdentifier: "Error")
-        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "sync")!, label: "Syncing" , forBadgeIdentifier: "Syncing")
-        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "warning")!, label: "Warning" , forBadgeIdentifier: "Warning")
-        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: NSImageNameAdvanced)!, label: "OK" , forBadgeIdentifier: "OK")
+        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "ok")!, label: "OK" , forBadgeIdentifier: badgeIdentifiers[0])
+        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "error")!, label: "Error" , forBadgeIdentifier: badgeIdentifiers[1])
+        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "sync")!, label: "Syncing" , forBadgeIdentifier: badgeIdentifiers[2])
+        FIFinderSyncController.defaultController().setBadgeImage(NSImage(named: "warning")!, label: "Warning" , forBadgeIdentifier: badgeIdentifiers[3])
+        
     }
 
     // MARK: - Primary Finder Sync protocol methods
@@ -52,9 +55,23 @@ class FinderSync: FIFinderSync {
     override func requestBadgeIdentifierForURL(url: NSURL) {
         NSLog("requestBadgeIdentifierForURL: %@", url.filePathURL!)
         
-        // For demonstration purposes, this picks one of our two badges, or no badge at all, based on the filename.
-        let whichBadge = (url.lastPathComponent?.containsString("Dev") != nil) ? abs(url.filePathURL!.hash) % 3 : 0
-        let badgeIdentifier = ["OK", "Error","Syncing","Warning"][whichBadge]
+        var badgeIdentifier = badgeIdentifiers[1]
+           
+        let predicate = NSPredicate(format: "path CONTAINS %@", url.path!)
+        
+        let count = dataContext.syncthingFiles.filterUsingPredicate(predicate).count()
+        
+        if(count > 0) {
+            badgeIdentifier = badgeIdentifiers[2]
+        }
+        else
+        {
+            badgeIdentifier = badgeIdentifiers[0]
+        }
+        
+        NSLog("currently \(dataContext.syncthingFiles.count()) files in dataContext")
+        
+        
         FIFinderSyncController.defaultController().setBadgeIdentifier(badgeIdentifier, forURL: url)
     }
 

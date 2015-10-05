@@ -91,6 +91,7 @@ public class SyncthingBar: NSObject {
         openSettingsItem.target = self
         
         self.updateSettings(self.settings!)
+        self.setFolderItems()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncthingStatusUpdated:", name: statusDidUpdateNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "foldersDetermined:", name: FoldersDetermined, object: nil)
@@ -199,6 +200,10 @@ public class SyncthingBar: NSObject {
     }
     
     func foldersDetermined(notification: NSNotification) {
+        setFolderItems()
+    }
+    
+    func setFolderItems() {
         // mop: should probably check if anything changed ... but first simple stupid :S
         var item = menu.itemWithTag(FolderTag)
         while (item != nil) {

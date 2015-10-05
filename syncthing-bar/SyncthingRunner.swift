@@ -268,6 +268,13 @@ class SyncthingRunner: NSObject {
                         })
                         
                         if( foldersChanged ) {
+                            do {
+                                try dataContext.save()
+                            }
+                            catch let err as NSError {
+                                print("Could not save CoreData Context: \(err.localizedDescription)")
+                            }
+                            
                             let folderData = ["folders": folderStructArr]
                             self.notificationCenter.postNotificationName(FoldersDetermined, object: self, userInfo: folderData)
                         }

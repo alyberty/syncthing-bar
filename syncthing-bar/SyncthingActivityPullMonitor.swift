@@ -28,6 +28,13 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
         dispatch_async(backgroundQueue, {
             var localIsInSync = true
             
+            do{
+                try dataContext.syncthingFiles.delete()
+            }
+            catch let err as NSError {
+                print("Could not remove syncthingFiles: " + err.localizedDescription)
+            }
+            
             for syncthingFolder in dataContext.syncthingFolders {
                 do {
                     

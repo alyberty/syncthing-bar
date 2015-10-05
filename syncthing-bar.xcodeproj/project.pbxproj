@@ -320,13 +320,6 @@
 			name = "Sycthing Runner";
 			sourceTree = "<group>";
 		};
-		50F81CAB1B94C62D00FD24A3 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
 		52F2B516DF59AE1E623413BE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,7 +370,6 @@
 		F1B099031A3C40AD00B79D31 /* syncthing-bar */ = {
 			isa = PBXGroup;
 			children = (
-				50F81CAB1B94C62D00FD24A3 /* Data */,
 				50F81C9E1B94A03F00FD24A3 /* Sycthing Runner */,
 				50F81C9D1B949FC100FD24A3 /* Interface */,
 				F1B099061A3C40AD00B79D31 /* AppDelegate.swift */,

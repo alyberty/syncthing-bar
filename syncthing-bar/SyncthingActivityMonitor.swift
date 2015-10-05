@@ -27,6 +27,7 @@ class SyncthingActivityMonitor {
     
     func notifyUpdatedStatus(info : [String:AnyObject]) {
         let notificationCenter = NSNotificationCenter.defaultCenter();
+        
         notificationCenter.postNotificationName(statusDidUpdateNotification,object: nil, userInfo: info);
     }
     

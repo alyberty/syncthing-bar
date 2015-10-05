@@ -59,10 +59,9 @@ public extension SyncthingFolder {
         if let statusString = dict["state"].string {
             self.stateEnum = SyncthingFolderState(state: statusString)
         }
+
         
         if let progress = dict["progress"].array, queued = dict["queued"].array, let rest = dict["rest"].array {
-            
-            self.syncedFiles.removeAll()
             
             for file in progress {
                 if let name = file["name"].string {
@@ -100,6 +99,13 @@ public extension SyncthingFolder {
                 }
             }
         }
+        
+        do {
+            try dataContext.save()
+        }
+        catch let err as NSError {
+            print("Could not save CoreData Context: \(err.localizedDescription)")
+        }
     }
 }
 
@@ -125,10 +131,6 @@ public extension DataContext {
     
     convenience init() {
         let frameworkBundle = NSBundle(identifier: "SyncthingStatus")!
-//        
-//        let p = frameworkBundle.resourcePath
-//        
-//        let path = frameworkBundle.pathForResource("SyncthingStatusDataModel", ofType: "momd")
         
         let contextOptions = DataContextOptions(managedObjectModelBundle: frameworkBundle, managedObjectModelName: "SyncthingStatusDataModel",
             bundleIdentifier: frameworkBundle.bundleIdentifier!,
