@@ -20,6 +20,8 @@
 		509EA1BE1BA318F4006BAA7F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509EA1BD1BA318F4006BAA7F /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		50A0ED2E1B40A4F500D38320 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A0ED2D1B40A4F500D38320 /* CoreServices.framework */; };
 		50A0ED321B40B88600D38320 /* FileSystemWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */; };
+		50B750BA1BC3442A00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750B81BC3442A00F7EF41 /* AppIcon.iconset */; settings = {ASSET_TAGS = (); }; };
+		50B750BE1BC3449F00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750BC1BC3449F00F7EF41 /* AppIcon.iconset */; settings = {ASSET_TAGS = (); }; };
 		50E3D9581BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9561BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		50E3D95D1BA2E2D2003E3887 /* SyncthingFile.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9591BA2E2D2003E3887 /* SyncthingFile.generated.swift */; settings = {ASSET_TAGS = (); }; };
 		50E3D95E1BA2E2D2003E3887 /* SyncthingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95A1BA2E2D2003E3887 /* SyncthingFile.swift */; settings = {ASSET_TAGS = (); }; };
@@ -132,6 +134,8 @@
 		50A0ED2D1B40A4F500D38320 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		50A0ED2F1B40A69600D38320 /* CDEvents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CDEvents.framework; path = "Pods/../build/Debug/Pods-syncthing-bar/CDEvents.framework"; sourceTree = "<group>"; };
 		50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemWatcher.swift; sourceTree = "<group>"; };
+		50B750B81BC3442A00F7EF41 /* AppIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = AppIcon.iconset; sourceTree = "<group>"; };
+		50B750BC1BC3449F00F7EF41 /* AppIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = AppIcon.iconset; path = finderextension/AppIcon.iconset; sourceTree = SOURCE_ROOT; };
 		50E3D9571BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SyncthingStatusDataModel.xcdatamodel; sourceTree = "<group>"; };
 		50E3D9591BA2E2D2003E3887 /* SyncthingFile.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncthingFile.generated.swift; sourceTree = "<group>"; };
 		50E3D95A1BA2E2D2003E3887 /* SyncthingFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncthingFile.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		50E3D9661BA2EB6B003E3887 /* finderextension */ = {
 			isa = PBXGroup;
 			children = (
+				50B750B81BC3442A00F7EF41 /* AppIcon.iconset */,
 				50E3D9691BA2EB6B003E3887 /* FinderSync.swift */,
 				50E3D96B1BA2EB6B003E3887 /* Info.plist */,
 				50E3D9671BA2EB6B003E3887 /* Supporting Files */,
@@ -370,6 +375,7 @@
 		F1B099031A3C40AD00B79D31 /* syncthing-bar */ = {
 			isa = PBXGroup;
 			children = (
+				50B750BC1BC3449F00F7EF41 /* AppIcon.iconset */,
 				50F81C9E1B94A03F00FD24A3 /* Sycthing Runner */,
 				50F81C9D1B949FC100FD24A3 /* Interface */,
 				F1B099061A3C40AD00B79D31 /* AppDelegate.swift */,
@@ -614,6 +620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B750BA1BC3442A00F7EF41 /* AppIcon.iconset in Resources */,
 				50165A701BA340C800ECADE8 /* FinderSyncStatusIcons.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,6 +635,7 @@
 				F14B62FD1B39E2F60022C08F /* Main.storyboard in Resources */,
 				F1BEE1461B185310001B5F8E /* LogWindow.xib in Resources */,
 				F1B0990B1A3C40AD00B79D31 /* Images.xcassets in Resources */,
+				50B750BE1BC3449F00F7EF41 /* AppIcon.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,7 +1046,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C2A8A5B71829731241807EE4 /* Pods-syncthing-bar.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "syncthing-bar/syncthing-bar.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1059,7 +1066,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 97E48F46AAC93341ED71C6AA /* Pods-syncthing-bar.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "syncthing-bar/syncthing-bar.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;

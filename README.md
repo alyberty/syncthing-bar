@@ -1,3 +1,9 @@
+This is a fork, which is still under heavy development.
+
+It adds status awareness to the app.
+The icon changes in accordance to the current syncthing status.
+It also adds a finder extension which shows the current staus of the files.
+
 syncthing-bar
 =============
 
