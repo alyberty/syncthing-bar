@@ -28,18 +28,7 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
         dispatch_async(backgroundQueue, {
             var localIsInSync = true
             
-            var oldFiles :[SyncthingFile] = []
-            
-            for oldFile in dataContext.syncthingFiles {
-                oldFiles.append(oldFile)
-            }
-            
-            do{
-                try dataContext.syncthingFiles.delete()
-            }
-            catch let err as NSError {
-                print("Could not remove syncthingFiles: " + err.localizedDescription)
-            }
+            var updatedFiles : [SyncthingFile] = []
             
             for syncthingFolder in dataContext.syncthingFolders {
                 do {
@@ -65,11 +54,34 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
                         >=nil
                         let needResponseData: NSData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                         
-                        syncthingFolder.setInfoWithDict(JSON(data: needResponseData))
+                        updatedFiles.appendContentsOf( syncthingFolder.updateSyncedFiles(JSON(data: needResponseData)) )
                     }
                 }
                 catch let error as NSError { //NSURLConnection timeout !
                     print("error while acessing REST Interface for status: \(error.localizedDescription)")
+                }
+            }
+            
+            var syncedFiles : [SyncthingFile] = []
+            
+            for file in dataContext.syncthingFiles {
+                if updatedFiles.contains(file) == false {
+                    syncedFiles.append(file)
+                }
+                
+                dataContext.syncthingFiles.deleteEntity(file)
+            }
+            
+            if(syncedFiles.count > 0 ) {
+                self.notifyDifference(syncedFiles)
+            }
+            
+            if (localIsInSync == false) {
+                do {
+                    try dataContext.save()
+                }
+                catch let err as NSError {
+                    print("Could not save CoreData Context: \(err.localizedDescription)")
                 }
             }
             
@@ -78,33 +90,6 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
             }
             else
             {
-                
-                //O(n^2) can be improved
-                var finishedFiles:[SyncthingFile] = []
-                
-                for file in dataContext.syncthingFiles {
-                    if oldFiles.contains(file) == false {
-                        finishedFiles.append(file)
-                    }
-                }
-                
-                
-                //Doesn't work - something with AlecrimCoreData and Public 
-//                for oldFile in oldFiles {
-//                    if (dataContext.syncthingFiles.count { $0.path == oldFile.path } ) == 0 {
-//                        NSLog("file was synced!: \(oldFile.path)")
-//                    }
-//                }
-                
-                do {
-                    try dataContext.save()
-                }
-                catch let err as NSError {
-                    print("Could not save CoreData Context: \(err.localizedDescription)")
-                }
-                
-                self.notifyDifference(finishedFiles)
-                
                 super.notifyUpdatedStatus([statusDidUpdateNotificationStatusKey:false]);
             }
         })

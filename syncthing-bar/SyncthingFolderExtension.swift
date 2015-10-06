@@ -54,16 +54,23 @@ public extension SyncthingFolder {
         set { self.state = newValue.rawValue }
     }
     
-    private func addSyncedFile(withPath path:String, withName name:String){
+    private func addSyncedFile(withPath path:String, withName name:String) -> SyncthingFile{
         
-        if dataContext.syncthingFiles.count({$0.path == path}) == 0 {
+        let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
+        
+        if let file = dataContext.syncthingFiles.first({$0.path == URL.path!}) {
+            return file
+        }
+        else
+        {
             let file = dataContext.syncthingFiles.createEntity()
-            let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
             
             file.path = URL.path!
             file.name = URL.lastPathComponent!
             
             self.addSyncedFile(file)
+            
+            return file
         }
     }
     
@@ -71,36 +78,50 @@ public extension SyncthingFolder {
         
         if let statusString = dict["state"].string {
             self.stateEnum = SyncthingFolderState(state: statusString)
+            
+            do {
+                try dataContext.save()
+            }
+            catch let err as NSError {
+                print("Could not save CoreData Context: \(err.localizedDescription)")
+            }
         }
-
+    }
+    
+    public func updateSyncedFiles(dict: JSON) -> [SyncthingFile]{
+        var updatedFiles : [SyncthingFile] = []
         
         if let progress = dict["progress"].array, queued = dict["queued"].array, let rest = dict["rest"].array {
             
             for file in progress {
                 if let name = file["name"].string {
-                    self.addSyncedFile(withPath: path, withName: name)
+                    updatedFiles.append(self.addSyncedFile(withPath: path, withName: name))
                 }
             }
             
             for file in queued {
                 if let name = file["name"].string {
-                    self.addSyncedFile(withPath: path, withName: name)
+                    updatedFiles.append(self.addSyncedFile(withPath: path, withName: name))
                 }
             }
             
             for file in rest {
                 if let name = file["name"].string {
-                    self.addSyncedFile(withPath: path, withName: name)
+                    updatedFiles.append(self.addSyncedFile(withPath: path, withName: name))
                 }
             }
         }
         
-        do {
-            try dataContext.save()
+        if updatedFiles.count > 0 {
+            do {
+                try dataContext.save()
+            }
+            catch let err as NSError {
+                print("Could not save CoreData Context: \(err.localizedDescription)")
+            }
         }
-        catch let err as NSError {
-            print("Could not save CoreData Context: \(err.localizedDescription)")
-        }
+        
+        return updatedFiles
     }
 }
 

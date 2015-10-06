@@ -43,8 +43,8 @@ class SyncthingActivityMonitor {
                 let notification = NSUserNotification()
                 
                 notification.deliveryDate = NSDate()
-                notification.title = "File is Synced"
-                notification.subtitle = "\(file.inFolder!.id) | \(file.name)";
+                notification.title = "\(file.inFolder!.id)"
+                notification.subtitle = "Synchronisiert: \(file.name)";
                 
                 NSUserNotificationCenter.defaultUserNotificationCenter().scheduleNotification(notification)
             }
