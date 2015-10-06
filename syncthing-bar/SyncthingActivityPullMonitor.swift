@@ -28,6 +28,12 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
         dispatch_async(backgroundQueue, {
             var localIsInSync = true
             
+            var oldFiles :[SyncthingFile] = []
+            
+            for oldFile in dataContext.syncthingFiles {
+                oldFiles.append(oldFile)
+            }
+            
             do{
                 try dataContext.syncthingFiles.delete()
             }
@@ -60,13 +66,6 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
                         let needResponseData: NSData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                         
                         syncthingFolder.setInfoWithDict(JSON(data: needResponseData))
-                        
-                        do {
-                            try dataContext.save()
-                        }
-                        catch let err as NSError {
-                            print("Could not save CoreData Context: \(err.localizedDescription)")
-                        }
                     }
                 }
                 catch let error as NSError { //NSURLConnection timeout !
@@ -79,6 +78,33 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
             }
             else
             {
+                
+                //O(n^2) can be improved
+                var finishedFiles:[SyncthingFile] = []
+                
+                for file in dataContext.syncthingFiles {
+                    if oldFiles.contains(file) == false {
+                        finishedFiles.append(file)
+                    }
+                }
+                
+                
+                //Doesn't work - something with AlecrimCoreData and Public 
+//                for oldFile in oldFiles {
+//                    if (dataContext.syncthingFiles.count { $0.path == oldFile.path } ) == 0 {
+//                        NSLog("file was synced!: \(oldFile.path)")
+//                    }
+//                }
+                
+                do {
+                    try dataContext.save()
+                }
+                catch let err as NSError {
+                    print("Could not save CoreData Context: \(err.localizedDescription)")
+                }
+                
+                self.notifyDifference(finishedFiles)
+                
                 super.notifyUpdatedStatus([statusDidUpdateNotificationStatusKey:false]);
             }
         })

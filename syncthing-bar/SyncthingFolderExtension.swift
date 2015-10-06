@@ -54,6 +54,19 @@ public extension SyncthingFolder {
         set { self.state = newValue.rawValue }
     }
     
+    private func addSyncedFile(withPath path:String, withName name:String){
+        
+        if dataContext.syncthingFiles.count({$0.path == path}) == 0 {
+            let file = dataContext.syncthingFiles.createEntity()
+            let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
+            
+            file.path = URL.path!
+            file.name = URL.lastPathComponent!
+            
+            self.addSyncedFile(file)
+        }
+    }
+    
     public func setInfoWithDict(dict: JSON) {
         
         if let statusString = dict["state"].string {
@@ -65,37 +78,19 @@ public extension SyncthingFolder {
             
             for file in progress {
                 if let name = file["name"].string {
-                    let file = dataContext.syncthingFiles.createEntity()
-                    let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
-                    
-                    file.path = URL.path!
-                    file.name = URL.lastPathComponent!
-                    
-                    self.addSyncedFile(file)
+                    self.addSyncedFile(withPath: path, withName: name)
                 }
             }
             
             for file in queued {
                 if let name = file["name"].string {
-                    let file = dataContext.syncthingFiles.createEntity()
-                    let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
-                    
-                    file.path = URL.path!
-                    file.name = URL.lastPathComponent!
-                    
-                    self.addSyncedFile(file)
+                    self.addSyncedFile(withPath: path, withName: name)
                 }
             }
             
             for file in rest {
                 if let name = file["name"].string {
-                    let file = dataContext.syncthingFiles.createEntity()
-                    let URL = NSURL(fileURLWithPath: self.path).URLByAppendingPathComponent(name)
-                    
-                    file.path = URL.path!
-                    file.name = URL.lastPathComponent!
-                    
-                    self.addSyncedFile(file)
+                    self.addSyncedFile(withPath: path, withName: name)
                 }
             }
         }
@@ -125,6 +120,10 @@ extension SyncthingFile : CustomDebugStringConvertible {
 
 public func ==(folderOne: SyncthingFolder, folderTwo: SyncthingFolder) -> Bool {
     return folderOne.id == folderTwo.id
+}
+
+public func ==(fileOne: SyncthingFile, fileTwo: SyncthingFile) -> Bool {
+    return fileOne.path == fileTwo.path
 }
 
 public extension DataContext {

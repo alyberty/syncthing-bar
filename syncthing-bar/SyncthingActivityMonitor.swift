@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import SyncthingStatus
 
 internal let statusDidUpdateNotification = "statusDidUpdateNotification";
 internal let statusDidUpdateNotificationStatusKey = "inSync";
@@ -34,5 +35,21 @@ class SyncthingActivityMonitor {
     @objc(foldersDetermined:)
     func foldersDetermined(notification: NSNotification) {
         //let folders = dataContext.syncthingFolders
+    }
+    
+    func notifyDifference(difference : [SyncthingFile] ) {
+        if(difference.count > 0) {
+            for file in difference {
+                let notification = NSUserNotification()
+                
+                notification.deliveryDate = NSDate()
+                notification.title = "File is Synced"
+                notification.subtitle = "\(file.inFolder!.id) | \(file.name)";
+                
+                NSUserNotificationCenter.defaultUserNotificationCenter().scheduleNotification(notification)
+            }
+            
+        }
+        
     }
 }

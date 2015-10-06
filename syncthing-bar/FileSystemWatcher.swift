@@ -49,15 +49,6 @@ public class FileSystemWatcher {
                         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
                             
                         }
-
-                        
-//                        let notification = NSUserNotification()
-//                        
-//                        notification.deliveryDate = NSDate()
-//                        notification.title = "Local File Changed"
-//                        notification.subtitle = "\(folder.id) | \(event.URL.lastPathComponent!)";
-//                        
-//                        NSUserNotificationCenter.defaultUserNotificationCenter().scheduleNotification(notification)
                     }
                 }
             }
