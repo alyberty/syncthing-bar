@@ -3,6 +3,9 @@ This is a fork, which is still under heavy development.
 It adds status awareness to the app.
 The icon changes in accordance to the current syncthing status.
 It also adds a finder extension which shows the current staus of the files.
+An OSX specific implementation of a file system notifier ( like syncthing-inotify ) is added.
+
+I changed the App identifier so I don't have to sign an ID which doesn't belong to me. ( Intended to be reverted )
 
 syncthing-bar
 =============
@@ -42,3 +45,7 @@ Syncthingbar is intended for local usage only. It will hardcode host and port an
 ## Installation Package
 
 The latest release can be found on the [releases tab](https://github.com/m0ppers/syncthing-bar/releases)
+
+## 
+FinderSync Staus icons from Owncloud OSX client.
+Status bar icon when syncing from Syncthing-GTK. ( Intended to be changed to monochromatic image )
