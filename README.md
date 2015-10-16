@@ -46,6 +46,6 @@ Syncthingbar is intended for local usage only. It will hardcode host and port an
 
 The latest release can be found on the [releases tab](https://github.com/m0ppers/syncthing-bar/releases)
 
-## 
-FinderSync Staus icons from Owncloud OSX client.
-Status bar icon when syncing from Syncthing-GTK. ( Intended to be changed to monochromatic image )
+## Licence Notice 
+FinderSync Staus icons from Owncloud OSX client. ( https://github.com/owncloud/client )
+Status bar icon when syncing from Syncthing-GTK. ( https://github.com/syncthing/syncthing-gtk ) [ Intended to be changed to monochromatic image ]
