@@ -165,15 +165,14 @@ public class SyncthingBar: NSObject {
         if (self.settings!.bw_icon) {
             if (self.settings!.invert_icon) {
                 let icon = NSImage(named: "syncthing-bar-invert")
-                //icon?.setTemplate = true
+                icon?.template = true
                 icon?.size = size
                 statusBarItem.image = icon
             }
             else {
                 let icon = NSImage(named: "syncthing-bar")
-                //icon?.setTemplate = true
+                icon?.template = true
                 icon?.size = size
-                statusBarItem.image = icon
             }
         }
         else {
