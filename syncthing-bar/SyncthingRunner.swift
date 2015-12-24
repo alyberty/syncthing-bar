@@ -31,6 +31,7 @@ class SyncthingRunner: NSObject {
     var portFinder : PortFinder = PortFinder(startPort: 8084)
     var path : String?
     var task: NSTask?
+    var watchdog: NSTask = NSTask()
     var port: NSInteger?
     var lastFail : NSDate?
     var failCount : NSInteger = 0
@@ -128,7 +129,8 @@ class SyncthingRunner: NSObject {
             /** FIN CONF  */
             
             let parentPID = NSProcessInfo().processIdentifier// get parent PID (this app) to pass to watchdog
-            let theBabyKiller = "SLEEPYTIME=\(sleepyTime); PARENTPID=\(parentPID); GoSubProcess () { CHILDPID=\(task!.processIdentifier) ; babyRISEfromtheGRAVE; }; babyRISEfromtheGRAVE () { echo \"PARENT is $PARENTPID\"; while kill -0 $PARENTPID; do sleep $SLEEPYTIME; if kill -0 $CHILDPID; then sleep $SLEEPYTIME; else echo \"Baby, pid $CHILDPID died!  Respawn!\"; fi; done; logger \"My Parent Process, aka $PARENTPID died!\"; logger \"I'm killing my baby, $CHILDPID, and myself.\"; kill -9 $CHILDPID; exit 1; }; GoSubProcess; exit 0";
+            
+            let theBabyKiller = "SLEEPYTIME=\(sleepyTime); PARENTPID=\(parentPID); CHILDPID=\(task!.processIdentifier); babyRISEfromtheGRAVE () { logger \"SyncthingBar [PID = $PARENTPID] died!. Killing Syncthing, $CHILDPID, and exiting.\"; while kill -0 $PARENTPID; do sleep $SLEEPYTIME; if kill -0 $CHILDPID; then sleep $SLEEPYTIME; else exit 1; fi; done; logger \"SyncthingBar [PID = $PARENTPID] died!. Killing Syncthing, $CHILDPID, and exiting.\"; kill -9 $CHILDPID; exit 1; }; babyRISEfromtheGRAVE; exit 0";
             
             let watchdog = NSTask() // setup task
             watchdog.launchPath = "/bin/sh"
@@ -217,6 +219,7 @@ class SyncthingRunner: NSObject {
                 pathElement = "path"
                 foldersElement = "folders"
             }
+            
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
                 if (error != nil) {
                     print("Got error collecting repositories \(error)")
@@ -235,6 +238,7 @@ class SyncthingRunner: NSObject {
                 if (error == nil) {
                     let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
                     
+                    //TODO - not recognicing removed folders
                     // mop: WTF am i typing :S
                     let folders = jsonResult[foldersElement] as? Array<AnyObject>
                     if folders != nil {

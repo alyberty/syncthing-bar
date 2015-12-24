@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		50165A701BA340C800ECADE8 /* FinderSyncStatusIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50165A6F1BA340C800ECADE8 /* FinderSyncStatusIcons.xcassets */; settings = {ASSET_TAGS = (); }; };
+		50165A701BA340C800ECADE8 /* FinderSyncStatusIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50165A6F1BA340C800ECADE8 /* FinderSyncStatusIcons.xcassets */; };
 		502B764A1B9DEF640033787A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 502B76491B9DEF640033787A /* libz.tbd */; };
 		503735DA1BA2403F00FE33BC /* SyncthingFolderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11BC9B21A3E45E100360C2E /* SyncthingFolderExtension.swift */; };
 		508425511BA234B300607A77 /* SyncthingStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 508425501BA234B300607A77 /* SyncthingStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		508425581BA234B400607A77 /* SyncthingStatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; settings = {ASSET_TAGS = (); }; };
+		508425581BA234B400607A77 /* SyncthingStatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; };
 		5084255F1BA234B400607A77 /* syncthing_statusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084255E1BA234B400607A77 /* syncthing_statusTests.swift */; };
 		508425631BA234B400607A77 /* SyncthingStatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; };
 		508425641BA234B400607A77 /* SyncthingStatus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5084256D1BA236BB00607A77 /* Pods_syncthing_bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084256C1BA236BB00607A77 /* Pods_syncthing_bar.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		508425701BA238F100607A77 /* AlecrimCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084256F1BA238F100607A77 /* AlecrimCoreData.framework */; };
-		509EA1BE1BA318F4006BAA7F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509EA1BD1BA318F4006BAA7F /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
+		509EA1BE1BA318F4006BAA7F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509EA1BD1BA318F4006BAA7F /* Media.xcassets */; };
 		50A0ED2E1B40A4F500D38320 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A0ED2D1B40A4F500D38320 /* CoreServices.framework */; };
 		50A0ED321B40B88600D38320 /* FileSystemWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */; };
-		50B750BA1BC3442A00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750B81BC3442A00F7EF41 /* AppIcon.iconset */; settings = {ASSET_TAGS = (); }; };
-		50B750BE1BC3449F00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750BC1BC3449F00F7EF41 /* AppIcon.iconset */; settings = {ASSET_TAGS = (); }; };
-		50E3D9581BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9561BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
-		50E3D95D1BA2E2D2003E3887 /* SyncthingFile.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9591BA2E2D2003E3887 /* SyncthingFile.generated.swift */; settings = {ASSET_TAGS = (); }; };
-		50E3D95E1BA2E2D2003E3887 /* SyncthingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95A1BA2E2D2003E3887 /* SyncthingFile.swift */; settings = {ASSET_TAGS = (); }; };
-		50E3D95F1BA2E2D2003E3887 /* SyncthingFolder.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95B1BA2E2D2003E3887 /* SyncthingFolder.generated.swift */; settings = {ASSET_TAGS = (); }; };
-		50E3D9601BA2E2D2003E3887 /* SyncthingFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95C1BA2E2D2003E3887 /* SyncthingFolder.swift */; settings = {ASSET_TAGS = (); }; };
+		50B750BA1BC3442A00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750B81BC3442A00F7EF41 /* AppIcon.iconset */; };
+		50B750BE1BC3449F00F7EF41 /* AppIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 50B750BC1BC3449F00F7EF41 /* AppIcon.iconset */; };
+		50E3D9581BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9561BA2E2AA003E3887 /* SyncthingStatusDataModel.xcdatamodeld */; };
+		50E3D95D1BA2E2D2003E3887 /* SyncthingFile.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9591BA2E2D2003E3887 /* SyncthingFile.generated.swift */; };
+		50E3D95E1BA2E2D2003E3887 /* SyncthingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95A1BA2E2D2003E3887 /* SyncthingFile.swift */; };
+		50E3D95F1BA2E2D2003E3887 /* SyncthingFolder.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95B1BA2E2D2003E3887 /* SyncthingFolder.generated.swift */; };
+		50E3D9601BA2E2D2003E3887 /* SyncthingFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D95C1BA2E2D2003E3887 /* SyncthingFolder.swift */; };
 		50E3D96A1BA2EB6B003E3887 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3D9691BA2EB6B003E3887 /* FinderSync.swift */; };
 		50E3D96E1BA2EB6B003E3887 /* finderextension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 50E3D9651BA2EB6B003E3887 /* finderextension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50E3D9721BA2EB90003E3887 /* SyncthingStatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; };
@@ -39,8 +39,8 @@
 		830680AE1B1C448700B0B7A7 /* SettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 830680AD1B1C448700B0B7A7 /* SettingsWindow.xib */; };
 		830680B01B1C801700B0B7A7 /* SyncthingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830680AF1B1C801700B0B7A7 /* SyncthingSettings.swift */; };
 		8310FB891B1F3DB500225E47 /* MonitorRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310FB881B1F3DB500225E47 /* MonitorRunner.swift */; };
-		B69269A498E828C29D7B406B /* Pods_syncthing_barTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947C00A631CC8CE0C932078B /* Pods_syncthing_barTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C7B48918FE1BB476F6F603FB /* Pods_syncthing_bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13962FA73FDBDA3C69C390A /* Pods_syncthing_bar.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B69269A498E828C29D7B406B /* Pods_syncthing_barTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947C00A631CC8CE0C932078B /* Pods_syncthing_barTests.framework */; };
+		C7B48918FE1BB476F6F603FB /* Pods_syncthing_bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13962FA73FDBDA3C69C390A /* Pods_syncthing_bar.framework */; };
 		F11BC9B11A3E20CA00360C2E /* syncthing in Resources */ = {isa = PBXBuildFile; fileRef = F11BC9B01A3E20CA00360C2E /* syncthing */; };
 		F14B62FC1B39E2B90022C08F /* syncthing-bar.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1A2BD421A6178620014473E /* syncthing-bar.pdf */; };
 		F14B62FD1B39E2F60022C08F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A4E42B1A4587C300602986 /* Main.storyboard */; };
@@ -316,9 +316,9 @@
 			isa = PBXGroup;
 			children = (
 				F1B099291A3C764400B79D31 /* SyncthingRunner.swift */,
+				505B3DC91B814EC40054C486 /* Infanticide.sh */,
 				F1B0992B1A3C77FC00B79D31 /* PortFinder.swift */,
 				8310FB881B1F3DB500225E47 /* MonitorRunner.swift */,
-				505B3DC91B814EC40054C486 /* Infanticide.sh */,
 				50F81C9B1B949F5500FD24A3 /* SyncthingActivityMonitor.swift */,
 				50F81C9F1B94A56900FD24A3 /* SyncthingActivityPullMonitor.swift */,
 			);
