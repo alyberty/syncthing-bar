@@ -37,17 +37,18 @@ class SyncthingRunner: NSObject {
     var failCount : NSInteger = 0
     var notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()
     var portOpenTimer : NSTimer?
+    var batteryStatusTimer : NSTimer?
     var repositoryCollectorTimer : NSTimer?
     var log : SyncthingLog
     var buf : NSString = NSString()
     var apiKey: NSString?
     var version: [Int]?
-    var paused: Bool
+    var paused: Bool = false
+    internal var batteryPaused: Bool = false
     
     var activityMonitor : SyncthingActivityMonitor?
     
     init(log: SyncthingLog) {
-        self.paused = false
         self.log = log
         
         super.init()
@@ -63,7 +64,11 @@ class SyncthingRunner: NSObject {
         notificationCenter.addObserver(self, selector: "taskStopped:", name: NSTaskDidTerminateNotification, object: task)
         notificationCenter.addObserver(self, selector: "receivedOut:", name: NSFileHandleDataAvailableNotification, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "startStop:", name: StartStop, object: nil)
+        
         self.activityMonitor = SyncthingActivityPullMonitor(runner: self)
+        
+        portOpenTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkBatteryStatus:", userInfo: nil, repeats: true)
     }
     
     func registerVersion() -> Bool {
@@ -318,6 +323,22 @@ class SyncthingRunner: NSObject {
         }
     }
     
+    
+    func checkBatteryStatus(timer: NSTimer) {
+        
+        let timeRemaining = IOPSGetTimeRemainingEstimate();
+        if (paused == false && timeRemaining != -2 ) {
+            pause ();
+            batteryPaused = true
+        }
+        
+        if (batteryPaused == true && paused == true && timeRemaining == -2) {
+            play ();
+            batteryPaused = false
+        }
+        
+    }
+    
     func taskStopped(sender: AnyObject) {
         let task = sender.object as! NSTask
         if (task != self.task) {
@@ -386,6 +407,19 @@ class SyncthingRunner: NSObject {
             task!.terminate();
         }
         stopTimers()
+    }
+    
+    func startStop(notification: NSNotification) {
+        // ctp: pausing execution made possible :D
+        
+        if let pause_ntfc = notification.userInfo!["pause"] as? Bool {
+            if pause_ntfc {
+                pause()
+            }
+            else {
+                play()
+            }
+        }
     }
     
     //MARK: - SyncthingDownloader

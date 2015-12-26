@@ -17,6 +17,7 @@
 		508425641BA234B400607A77 /* SyncthingStatus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5084254E1BA234B300607A77 /* SyncthingStatus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5084256D1BA236BB00607A77 /* Pods_syncthing_bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084256C1BA236BB00607A77 /* Pods_syncthing_bar.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		508425701BA238F100607A77 /* AlecrimCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5084256F1BA238F100607A77 /* AlecrimCoreData.framework */; };
+		5097D8691C2ECD610063FAE2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5097D8681C2ECD610063FAE2 /* IOKit.framework */; };
 		509EA1BE1BA318F4006BAA7F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509EA1BD1BA318F4006BAA7F /* Media.xcassets */; };
 		50A0ED2E1B40A4F500D38320 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A0ED2D1B40A4F500D38320 /* CoreServices.framework */; };
 		50A0ED321B40B88600D38320 /* FileSystemWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A0ED311B40B88600D38320 /* FileSystemWatcher.swift */; };
@@ -130,6 +131,8 @@
 		508425601BA234B400607A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5084256C1BA236BB00607A77 /* Pods_syncthing_bar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_syncthing_bar.framework; path = Pods/../build/Release/Pods_syncthing_bar.framework; sourceTree = "<group>"; };
 		5084256F1BA238F100607A77 /* AlecrimCoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlecrimCoreData.framework; path = "../../../../Library/Developer/Xcode/DerivedData/syncthing-bar-bmuljqzfjyhpaoaqofaaxysypepw/Build/Products/Debug/AlecrimCoreData.framework"; sourceTree = "<group>"; };
+		5097D8681C2ECD610063FAE2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		5097D86A1C2ECFA10063FAE2 /* syncthing-bar-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "syncthing-bar-Bridging-Header.h"; sourceTree = "<group>"; };
 		509EA1BD1BA318F4006BAA7F /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		50A0ED2D1B40A4F500D38320 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		50A0ED2F1B40A69600D38320 /* CDEvents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CDEvents.framework; path = "Pods/../build/Debug/Pods-syncthing-bar/CDEvents.framework"; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5097D8691C2ECD610063FAE2 /* IOKit.framework in Frameworks */,
 				502B764A1B9DEF640033787A /* libz.tbd in Frameworks */,
 				50F81CA81B94C47A00FD24A3 /* CoreData.framework in Frameworks */,
 				508425631BA234B400607A77 /* SyncthingStatus.framework in Frameworks */,
@@ -232,6 +236,7 @@
 		1FEA51CF8314C10071FACC99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5097D8681C2ECD610063FAE2 /* IOKit.framework */,
 				5084256F1BA238F100607A77 /* AlecrimCoreData.framework */,
 				5084256C1BA236BB00607A77 /* Pods_syncthing_bar.framework */,
 				502B76491B9DEF640033787A /* libz.tbd */,
@@ -321,6 +326,7 @@
 				8310FB881B1F3DB500225E47 /* MonitorRunner.swift */,
 				50F81C9B1B949F5500FD24A3 /* SyncthingActivityMonitor.swift */,
 				50F81C9F1B94A56900FD24A3 /* SyncthingActivityPullMonitor.swift */,
+				5097D86A1C2ECFA10063FAE2 /* syncthing-bar-Bridging-Header.h */,
 			);
 			name = "Sycthing Runner";
 			sourceTree = "<group>";
@@ -1059,6 +1065,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alyberty.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "syncthing-bar/syncthing-bar-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1079,6 +1086,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alyberty.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "syncthing-bar/syncthing-bar-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -6,7 +6,7 @@ target 'syncthing-bar' do
     use_frameworks!
 
     pod 'CDEvents'
-    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'
+    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
     pod 'AlecrimCoreData', '4.0-beta.1'
     pod 'Alamofire', '2.0.0-beta.4'
 end

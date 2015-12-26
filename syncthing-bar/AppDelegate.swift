@@ -47,8 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "settingsSet:", name: SettingsSet, object: syncthingBar?.setter)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "startStop:", name: StartStop, object: syncthingBar)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "startStop:", name: StartStop, object: monitor)
     }
     
     func stop() {
@@ -155,19 +153,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.monitor?.startMonitor()
         } else {
             self.monitor?.stopMonitor()
-        }
-    }
-    
-    func startStop(notification: NSNotification) {
-        // ctp: pausing execution made possible :D
-        
-        if let pause_ntfc = notification.userInfo!["pause"] as? Bool {
-            if pause_ntfc {
-                self.runner?.pause()
-            }
-            else {
-                self.runner?.play()
-            }
         }
     }
     

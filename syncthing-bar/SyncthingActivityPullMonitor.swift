@@ -38,11 +38,12 @@ class SyncthingActivityPullMonitor : SyncthingActivityMonitor {
                     let request: NSMutableURLRequest = self.runner.createRequest("/rest/db/status?\(params)")
                     request.HTTPMethod = "GET"
                     
-                    let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?
-                    >=nil
+                    let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
                     let statusResponseData: NSData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                     
-                    syncthingFolder.setInfoWithDict(JSON(data: statusResponseData))
+                    let jsonConvertedResponse = JSON(data: statusResponseData)
+                    
+                    syncthingFolder.setInfoWithDict(jsonConvertedResponse)
                     
                     if(syncthingFolder.stateEnum != SyncthingFolderState.idle) {
                         localIsInSync = false
